@@ -2,12 +2,12 @@
 
 public class Board
 {
-    public object InitBoard()
+    public string InitBoard()
     {
         return $"[ ][ ][ ]{Environment.NewLine}[ ][ ][ ]{Environment.NewLine}[ ][ ][ ]";
     }
 
-    public object InsertMotion()
+    public string InsertMotion()
     {
         return $"[X][ ][ ]{Environment.NewLine}[ ][ ][ ]{Environment.NewLine}[ ][ ][ ]";
     }
