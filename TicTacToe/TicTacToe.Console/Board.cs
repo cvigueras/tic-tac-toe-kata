@@ -7,8 +7,12 @@ public class Board
         return $"[ ][ ][ ]{Environment.NewLine}[ ][ ][ ]{Environment.NewLine}[ ][ ][ ]";
     }
 
-    public string InsertMotion()
+    public string InsertMotion(string player, int x, int y)
     {
-        return $"[X][ ][ ]{Environment.NewLine}[ ][ ][ ]{Environment.NewLine}[ ][ ][ ]";
+        if (x == 0 && y == 0)
+        {
+            return $"[X][ ][ ]{Environment.NewLine}[ ][ ][ ]{Environment.NewLine}[ ][ ][ ]";
+        }
+        return $"[X][O][ ]{Environment.NewLine}[ ][ ][ ]{Environment.NewLine}[ ][ ][ ]";
     }
 }
