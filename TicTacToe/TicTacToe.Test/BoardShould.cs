@@ -31,7 +31,7 @@ namespace TicTacToe.Test
         }
 
         [Test]
-        public void InsertFirstMotionForPlayerO()
+        public void InsertFirstMotionForPlayerO()                                                                                                                                                                                                                                                                               
         {
             var expectedBoard = new[,] { { "[X]", "[O]", "[ ]" }, { "[ ]", "[ ]", "[ ]" }, { "[ ]", "[ ]", "[ ]" } };
             _board.InsertMotion("X", new Position(0, 0));
