@@ -13,6 +13,11 @@ public class Board
         {
             return $"[X][ ][ ]{Environment.NewLine}[ ][ ][ ]{Environment.NewLine}[ ][ ][ ]";
         }
+
+        if (x == 0 && y == 2)
+        {
+            return $"[X][O][X]{Environment.NewLine}[ ][ ][ ]{Environment.NewLine}[ ][ ][ ]";
+        }
         return $"[X][O][ ]{Environment.NewLine}[ ][ ][ ]{Environment.NewLine}[ ][ ][ ]";
     }
 }

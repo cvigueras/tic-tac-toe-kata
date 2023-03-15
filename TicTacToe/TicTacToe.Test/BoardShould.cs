@@ -31,9 +31,16 @@ namespace TicTacToe.Test
         public void InsertFirstMotionForPlayerO()
         {
             var board = new Board();
-            var result = board.InsertMotion("O", 0,1);
+            var result = board.InsertMotion("O", 0, 1);
             result.Should().Be($"[X][O][ ]{Environment.NewLine}[ ][ ][ ]{Environment.NewLine}[ ][ ][ ]");
         }
 
+        [Test]
+        public void InsertSecondMotionForPlayerX()
+        {
+            var board = new Board();
+            var result = board.InsertMotion("X", 0, 2);
+            result.Should().Be($"[X][O][X]{Environment.NewLine}[ ][ ][ ]{Environment.NewLine}[ ][ ][ ]");
+        }
     }
 }
