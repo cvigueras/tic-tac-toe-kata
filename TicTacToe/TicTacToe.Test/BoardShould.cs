@@ -5,42 +5,59 @@ namespace TicTacToe.Test
 {
     public class BoardShould
     {
+        private string[,] _givenBoard;
+        private Board _board;
+
         [SetUp]
         public void Setup()
         {
-
+            _givenBoard = new[,] { { "[ ]", "[ ]", "[ ]" }, { "[ ]", "[ ]", "[ ]" }, { "[ ]", "[ ]", "[ ]" } };
+            _board = Board.Create(_givenBoard);
         }
 
         [Test]
         public void CreateEmptyBoard()
         {
-            var board = new Board();
-            var result = board.InitBoard();
-            result.Should().Be($"[ ][ ][ ]{Environment.NewLine}[ ][ ][ ]{Environment.NewLine}[ ][ ][ ]");
+            var result = Board.Create(_givenBoard);
+            result.Value.Should().BeEquivalentTo(_givenBoard);
         }
 
         [Test]
         public void InsertFirstMotionForPlayerX()
         {
-            var board = new Board();
-            var result = board.InsertMotion("X", new Position(0, 0));
-            result.Should().Be($"[X][ ][ ]{Environment.NewLine}[ ][ ][ ]{Environment.NewLine}[ ][ ][ ]");
+            var expectedBoard = new[,] { { "[X]", "[ ]", "[ ]" }, { "[ ]", "[ ]", "[ ]" }, { "[ ]", "[ ]", "[ ]" } };
+            _board.InsertMotion("X", new Position(0, 0));
+            _board.Value.Should().BeEquivalentTo(expectedBoard);
         }
 
         [Test]
         public void InsertFirstMotionForPlayerO()
         {
-            var board = new Board();
-            var result = board.InsertMotion("O", new Position(0, 1));
-            result.Should().Be($"[X][O][ ]{Environment.NewLine}[ ][ ][ ]{Environment.NewLine}[ ][ ][ ]");
+            var expectedBoard = new[,] { { "[X]", "[O]", "[ ]" }, { "[ ]", "[ ]", "[ ]" }, { "[ ]", "[ ]", "[ ]" } };
+            _board.InsertMotion("X", new Position(0, 0));
+            _board.InsertMotion("O", new Position(0, 1));
+            _board.Value.Should().BeEquivalentTo(expectedBoard);
         }
 
         [Test]
         public void InsertSecondMotionForPlayerX()
         {
-            var board = new Board();
-            var result = board.InsertMotion("X", new Position(0, 2));
-            result.Should().Be($"[X][O][X]{Environment.NewLine}[ ][ ][ ]{Environment.NewLine}[ ][ ][ ]");
+            var expectedBoard = new[,] { { "[X]", "[O]", "[X]" }, { "[ ]", "[ ]", "[ ]" }, { "[ ]", "[ ]", "[ ]" } };
+            _board.InsertMotion("X", new Position(0, 0));
+            _board.InsertMotion("O", new Position(0, 1));
+            _board.InsertMotion("X", new Position(0, 2));
+            _board.Value.Should().BeEquivalentTo(expectedBoard);
+        }
+
+        [Test]
+        public void InsertSecondMotionForPlayerO()
+        {
+            var expectedBoard = new[,] { { "[X]", "[O]", "[X]" }, { "[O]", "[ ]", "[ ]" }, { "[ ]", "[ ]", "[ ]" } };
+            _board.InsertMotion("X", new Position(0, 0));
+            _board.InsertMotion("O", new Position(0, 1));
+            _board.InsertMotion("X", new Position(0, 2));
+            _board.InsertMotion("O", new Position(1, 0));
+            _board.Value.Should().BeEquivalentTo(expectedBoard);
         }
     }
 }

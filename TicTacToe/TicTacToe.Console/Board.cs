@@ -2,22 +2,20 @@
 
 public class Board
 {
-    public string InitBoard()
+    public string[,] Value { get; }
+
+    private Board(string[,] value)
     {
-        return $"[ ][ ][ ]{Environment.NewLine}[ ][ ][ ]{Environment.NewLine}[ ][ ][ ]";
+        Value = value;
     }
 
-    public string InsertMotion(string player, Position position)
+    public static Board? Create(string[,] value)
     {
-        if (position.X == 0 && position.Y == 0)
-        {
-            return $"[X][ ][ ]{Environment.NewLine}[ ][ ][ ]{Environment.NewLine}[ ][ ][ ]";
-        }
+        return new Board(value);
+    }
 
-        if (position.X == 0 && position.Y == 2)
-        {
-            return $"[X][O][X]{Environment.NewLine}[ ][ ][ ]{Environment.NewLine}[ ][ ][ ]";
-        }
-        return $"[X][O][ ]{Environment.NewLine}[ ][ ][ ]{Environment.NewLine}[ ][ ][ ]";
+    public void InsertMotion(string player, Position position)
+    {
+        Value[position.X,position.Y] = $"[{player}]";
     }
 }
