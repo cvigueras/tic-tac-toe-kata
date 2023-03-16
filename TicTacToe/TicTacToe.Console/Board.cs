@@ -34,12 +34,17 @@ public class Board
             return "Player O Win";
         }
 
-        if (Value[2, 0].Contains("X") && Value[2, 1].Contains("X") && Value[2, 2].Contains("X"))
+        if (IsPlayerXWinByThirdRow())
         {
             return "Player X Win";
         }
 
         return "Player Y Win";
+    }
+
+    private bool IsPlayerXWinByThirdRow()
+    {
+        return Value[2, 0].Contains("X") && Value[2, 1].Contains("X") && Value[2, 2].Contains("X");
     }
 
     private bool IsPlayerYWinByFirstRow()
