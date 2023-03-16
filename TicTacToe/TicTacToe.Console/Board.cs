@@ -2,11 +2,15 @@
 
 public class Board
 {
+    private readonly Player _playerX;
+    private readonly Player _playerO;
     public string[,] Value { get; }
 
     private Board(string[,] value)
     {
         Value = value;
+        _playerX = Player.Create("X", "[X][X][X]");
+        _playerO = Player.Create("Y", "[O][O][O]");
     }
 
     public static Board? Create(string[,] value)
@@ -21,33 +25,20 @@ public class Board
 
     public string HasWinnerPlayer()
     {
-        return IsPlayerXWin() ? "Player X Win" : IsPlayerYWin() ? "Player O Win" : "Draw";
+        return IsPlayerWin(_playerX) ? "Player X Win" : IsPlayerWin(_playerO) ? "Player O Win" : "Draw";
     }
 
-    private bool IsPlayerYWin()
+    private bool IsPlayerWin(Player player)
     {
         return IsPlayerWinByRow(0,
-                   "[O][O][O]") ||
+                   player.MatchPlayerWin) ||
                IsPlayerWinByRow(1,
-                   "[O][O][O]") ||
+                   player.MatchPlayerWin) ||
                IsPlayerWinByRow(2,
-                   "[O][O][O]") ||
-               IsPlayerWinByColumn(0, "[O][O][O]") ||
-               IsPlayerWinByColumn(1, "[O][O][O]") ||
-               IsPlayerWinByColumn(2, "[O][O][O]");
-    }
-
-    private bool IsPlayerXWin()
-    {
-        return IsPlayerWinByRow(0,
-                   "[X][X][X]") ||
-               IsPlayerWinByRow(1,
-                   "[X][X][X]") ||
-               IsPlayerWinByRow(2,
-                   "[X][X][X]") ||
-               IsPlayerWinByColumn(0, "[X][X][X]") ||
-               IsPlayerWinByColumn(1, "[X][X][X]") ||
-               IsPlayerWinByColumn(2, "[X][X][X]");
+                   player.MatchPlayerWin) ||
+               IsPlayerWinByColumn(0, player.MatchPlayerWin) ||
+               IsPlayerWinByColumn(1, player.MatchPlayerWin) ||
+               IsPlayerWinByColumn(2, player.MatchPlayerWin);
     }
 
     private bool IsPlayerWinByColumn(int numberColumn, string matchPlayerWin)
