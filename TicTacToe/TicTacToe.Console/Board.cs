@@ -21,7 +21,7 @@ public class Board
 
     public string HasWinnerPlayer()
     {
-        if (IsPlayerXWinByFirstRow() || IsPlayerXWinBySecondRow() || IsPlayerXWinByThirdRow())
+        if (IsPlayerXWinByFirstRow() || IsPlayerXWinBySecondRow() || IsPlayerXWinByThirdRow() || IsPlayerXWinByFirstColumn())
         {
             return "Player X Win";
         }
@@ -31,13 +31,14 @@ public class Board
             return "Player O Win";
         }
 
-        if (Value[0, 0].Contains("X") && Value[1, 0].Contains("X") && Value[2, 0].Contains("X"))
-        {
-            return "Player X Win";
-        }
-
         return "Draw";
     }
+
+    private bool IsPlayerXWinByFirstColumn()
+    {
+        return Value[0, 0].Contains("X") && Value[1, 0].Contains("X") && Value[2, 0].Contains("X");
+    }
+
     private bool IsPlayerXWinByFirstRow()
     {
         return Value[0, 0].Contains("X") && Value[0, 1].Contains("X") && Value[0, 2].Contains("X");
