@@ -14,7 +14,6 @@ public class Game
         _board = Board.Create(new[,] { { "[ ]", "[ ]", "[ ]" }, { "[ ]", "[ ]", "[ ]" }, { "[ ]", "[ ]", "[ ]" } });
     }
 
-
     public void InsertMotion(Token token, Position position)
     {
         if (_board != null)
@@ -36,12 +35,12 @@ public class Game
                    player.MatchPlayerWin) ||
                IsPlayerWinByRow(2,
                    player.MatchPlayerWin) ||
-               IsPlayerWinByColumn(0, player.MatchPlayerWin) ||
-               IsPlayerWinByColumn(1, player.MatchPlayerWin) ||
-               IsPlayerWinByColumn(2, player.MatchPlayerWin);
+               IsPlayerWinByColumn(0, player) ||
+               IsPlayerWinByColumn(1, player) ||
+               IsPlayerWinByColumn(2, player);
     }
 
-    private bool IsPlayerWinByColumn(int numberColumn, string matchPlayerWin)
+    private bool IsPlayerWinByColumn(int numberColumn, Player player)
     {
         var isWinner = string.Empty;
         if (_board != null)
@@ -58,7 +57,7 @@ public class Game
             }
         }
 
-        return isWinner.Equals(matchPlayerWin);
+        return isWinner.Equals(player.MatchPlayerWin);
     }
 
     private bool IsPlayerWinByRow(int numberRow, string matchPlayerWin)
