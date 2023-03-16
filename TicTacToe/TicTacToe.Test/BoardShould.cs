@@ -72,5 +72,18 @@ namespace TicTacToe.Test
             _board.InsertMotion("X", new Position(2, 2));
             _board.Value.Should().BeEquivalentTo(expectedBoard);
         }
+
+        [Test]
+        public void InsertThirdMotionForPlayerO()
+        {
+            var expectedBoard = new[,] { { "[X]", "[O]", "[X]" }, { "[O]", "[O]", "[ ]" }, { "[ ]", "[ ]", "[X]" } };
+            _board.InsertMotion("X", new Position(0, 0));
+            _board.InsertMotion("O", new Position(0, 1));
+            _board.InsertMotion("X", new Position(0, 2));
+            _board.InsertMotion("O", new Position(1, 0));
+            _board.InsertMotion("X", new Position(2, 2));
+            _board.InsertMotion("O", new Position(1, 1));
+            _board.Value.Should().BeEquivalentTo(expectedBoard);
+        }
     }
 }
