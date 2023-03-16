@@ -21,53 +21,63 @@ public class Board
 
     public string HasWinnerPlayer()
     {
-        if (IsPlayerXWinByFirstRow() || IsPlayerXWinBySecondRow() || IsPlayerXWinByThirdRow() || IsPlayerXWinByFirstColumn())
+        return IsPlayerXWin() ? "Player X Win" : IsPlayerYWin() ? "Player O Win" : "Draw";
+    }
+
+    private bool IsPlayerYWin()
+    {
+        return IsPlayerWinByRow(0,
+                   "[O][O][O]") ||
+               IsPlayerWinByRow(1,
+                   "[O][O][O]") ||
+               IsPlayerWinByRow(2,
+                   "[O][O][O]") ||
+               IsPlayerWinByColumn(0, "[O][O][O]");
+    }
+
+    private bool IsPlayerXWin()
+    {
+        return IsPlayerWinByRow(0,
+                   "[X][X][X]") ||
+               IsPlayerWinByRow(1,
+                   "[X][X][X]") ||
+               IsPlayerWinByRow(2,
+                   "[X][X][X]") ||
+               IsPlayerWinByColumn(0, "[X][X][X]");
+    }
+
+    private bool IsPlayerWinByColumn(int numberColumn, string matchPlayerWin)
+    {
+        string isWinner = string.Empty;
+        var playerXWinner = matchPlayerWin;
+        for (var i = 0; i < Value.GetLength(0); i++)
         {
-            return "Player X Win";
+            for (var j = 0; j < Value.GetLength(1); j++)
+            {
+                if (j == numberColumn)
+                {
+                    isWinner += Value[i, j];
+                }
+            }
         }
 
-        if (IsPlayerOWinByFirstRow() || IsPlayerOWinBySecondRow() || IsPlayerOWinByThirdRow())
+        return isWinner.Equals(playerXWinner);
+    }
+
+    private bool IsPlayerWinByRow(int numberRow, string matchPlayerWin)
+    {
+        string isWinner = string.Empty;
+        for (var i = 0; i < Value.GetLength(0); i++)
         {
-            return "Player O Win";
+            for (var j = 0; j < Value.GetLength(1); j++)
+            {
+                if (i == numberRow)
+                {
+                    isWinner += Value[i, j];
+                }
+            }
         }
 
-        if (Value[0, 0].Contains("O") && Value[1, 0].Contains("O") && Value[2, 0].Contains("O"))
-        {
-            return "Player O Win";
-        }
-
-        return "Draw";
-    }
-
-    private bool IsPlayerXWinByFirstColumn()
-    {
-        return Value[0, 0].Contains("X") && Value[1, 0].Contains("X") && Value[2, 0].Contains("X");
-    }
-
-    private bool IsPlayerXWinByFirstRow()
-    {
-        return Value[0, 0].Contains("X") && Value[0, 1].Contains("X") && Value[0, 2].Contains("X");
-    }
-    private bool IsPlayerXWinBySecondRow()
-    {
-        return Value[1, 0].Contains("X") && Value[1, 1].Contains("X") && Value[1, 2].Contains("X");
-    }
-
-    private bool IsPlayerXWinByThirdRow()
-    {
-        return Value[2, 0].Contains("X") && Value[2, 1].Contains("X") && Value[2, 2].Contains("X");
-    }
-    private bool IsPlayerOWinByFirstRow()
-    {
-        return Value[0, 0].Contains("O") && Value[0, 1].Contains("O") && Value[0, 2].Contains("O");
-    }
-    private bool IsPlayerOWinBySecondRow()
-    {
-        return Value[1, 0].Contains("O") && Value[1, 1].Contains("O") && Value[1, 2].Contains("O");
-    }
-
-    private bool IsPlayerOWinByThirdRow()
-    {
-        return Value[2, 0].Contains("O") && Value[2, 1].Contains("O") && Value[2, 2].Contains("O");
+        return isWinner.Equals(matchPlayerWin);
     }
 }
