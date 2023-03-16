@@ -43,7 +43,8 @@ public class Board
                    "[X][X][X]") ||
                IsPlayerWinByRow(2,
                    "[X][X][X]") ||
-               IsPlayerWinByColumn(0, "[X][X][X]");
+               IsPlayerWinByColumn(0, "[X][X][X]") || 
+               IsPlayerWinByColumn(1, "[X][X][X]");
     }
 
     private bool IsPlayerWinByColumn(int numberColumn, string matchPlayerWin)
