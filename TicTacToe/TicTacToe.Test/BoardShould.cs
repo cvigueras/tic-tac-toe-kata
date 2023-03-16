@@ -99,7 +99,7 @@ namespace TicTacToe.Test
         }
 
         [Test]
-        public void WhenPlayerYWinByFirstRowShowPlayerXWin()
+        public void WhenPlayerYWinByFirstRowShowPlayerYWin()
         {
             _board.InsertMotion("O", new Position(0, 0));
             _board.InsertMotion("X", new Position(2, 2));
@@ -107,7 +107,7 @@ namespace TicTacToe.Test
             _board.InsertMotion("X", new Position(2, 1));
             _board.InsertMotion("O", new Position(0, 2));
             var result = _board.HasWinnerPlayer();
-            result.Should().Be("Player Y Win");
+            result.Should().Be("Player O Win");
         }
 
         [Test]
@@ -123,7 +123,7 @@ namespace TicTacToe.Test
         }
 
         [Test]
-        public void WhenPlayerYWinBySecondRowShowPlayerXWin()
+        public void WhenPlayerYWinBySecondRowShowPlayerYWin()
         {
             _board.InsertMotion("O", new Position(1, 0));
             _board.InsertMotion("X", new Position(2, 2));
@@ -144,6 +144,18 @@ namespace TicTacToe.Test
             _board.InsertMotion("X", new Position(2, 2));
             var result = _board.HasWinnerPlayer();
             result.Should().Be("Player X Win");
+        }
+
+        [Test]
+        public void WhenPlayerYWinByThirdRowShowPlayerYWin()
+        {
+            _board.InsertMotion("O", new Position(2, 0));
+            _board.InsertMotion("X", new Position(1, 2));
+            _board.InsertMotion("O", new Position(2, 1));
+            _board.InsertMotion("X", new Position(1, 1));
+            _board.InsertMotion("O", new Position(2, 2));
+            var result = _board.HasWinnerPlayer();
+            result.Should().Be("Player O Win");
         }
     }
 }
