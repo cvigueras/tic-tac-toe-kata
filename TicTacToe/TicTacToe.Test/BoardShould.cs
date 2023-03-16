@@ -6,13 +6,13 @@ namespace TicTacToe.Test
     public class BoardShould
     {
         private string[,] _givenBoard;
-        private Board _board;
+        private Game _game;
 
         [SetUp]
         public void Setup()
         {
             _givenBoard = new[,] { { "[ ]", "[ ]", "[ ]" }, { "[ ]", "[ ]", "[ ]" }, { "[ ]", "[ ]", "[ ]" } };
-            _board = Board.Create(_givenBoard);
+            _game = new Game();
         }
 
         [Test]
@@ -26,18 +26,18 @@ namespace TicTacToe.Test
         public void InsertFirstMotionForPlayerX()
         {
             var expectedBoard = new[,] { { "[X]", "[ ]", "[ ]" }, { "[ ]", "[ ]", "[ ]" }, { "[ ]", "[ ]", "[ ]" } };
-            _board.InsertMotion(Token.X, new Position(0, 0));
-            _board.Value.Should().BeEquivalentTo(expectedBoard);
+            _game.InsertMotion(Token.X, new Position(0, 0));
+            _game.Board.Value.Should().BeEquivalentTo(expectedBoard);
         }
 
         [Test]
         public void InsertSecondMotionForPlayerX()
         {
             var expectedBoard = new[,] { { "[X]", "[O]", "[X]" }, { "[ ]", "[ ]", "[ ]" }, { "[ ]", "[ ]", "[ ]" } };
-            _board.InsertMotion(Token.X, new Position(0, 0));
-            _board.InsertMotion(Token.O, new Position(0, 1));
-            _board.InsertMotion(Token.X, new Position(0, 2));
-            _board.Value.Should().BeEquivalentTo(expectedBoard);
+            _game.InsertMotion(Token.X, new Position(0, 0));
+            _game.InsertMotion(Token.O, new Position(0, 1));
+            _game.InsertMotion(Token.X, new Position(0, 2));
+            _game.Board.Value.Should().BeEquivalentTo(expectedBoard);
         }
 
 
@@ -45,9 +45,9 @@ namespace TicTacToe.Test
         public void InsertFirstMotionForPlayerO()                                                                                                                                                                                                                                                                               
         {
             var expectedBoard = new[,] { { "[X]", "[O]", "[ ]" }, { "[ ]", "[ ]", "[ ]" }, { "[ ]", "[ ]", "[ ]" } };
-            _board.InsertMotion(Token.X, new Position(0, 0));
-            _board.InsertMotion(Token.O, new Position(0, 1));
-            _board.Value.Should().BeEquivalentTo(expectedBoard);
+            _game.InsertMotion(Token.X, new Position(0, 0));
+            _game.InsertMotion(Token.O, new Position(0, 1));
+            _game.Board.Value.Should().BeEquivalentTo(expectedBoard);
         }
 
 
@@ -55,178 +55,178 @@ namespace TicTacToe.Test
         public void InsertSecondMotionForPlayerO()
         {
             var expectedBoard = new[,] { { "[X]", "[O]", "[X]" }, { "[O]", "[ ]", "[ ]" }, { "[ ]", "[ ]", "[ ]" } };
-            _board.InsertMotion(Token.X, new Position(0, 0));
-            _board.InsertMotion(Token.O, new Position(0, 1));
-            _board.InsertMotion(Token.X, new Position(0, 2));
-            _board.InsertMotion(Token.O, new Position(1, 0));
-            _board.Value.Should().BeEquivalentTo(expectedBoard);
+            _game.InsertMotion(Token.X, new Position(0, 0));
+            _game.InsertMotion(Token.O, new Position(0, 1));
+            _game.InsertMotion(Token.X, new Position(0, 2));
+            _game.InsertMotion(Token.O, new Position(1, 0));
+            _game.Board.Value.Should().BeEquivalentTo(expectedBoard);
         }
 
         [Test]
         public void InsertThirdMotionForPlayerX()
         {
             var expectedBoard = new[,] { { "[X]", "[O]", "[X]" }, { "[ ]", "[ ]", "[ ]" }, { "[ ]", "[ ]", "[X]" } };
-            _board.InsertMotion(Token.X, new Position(0, 0));
-            _board.InsertMotion(Token.O, new Position(0, 1));
-            _board.InsertMotion(Token.X, new Position(0, 2));
-            _board.InsertMotion(Token.X, new Position(2, 2));
-            _board.Value.Should().BeEquivalentTo(expectedBoard);
+            _game.InsertMotion(Token.X, new Position(0, 0));
+            _game.InsertMotion(Token.O, new Position(0, 1));
+            _game.InsertMotion(Token.X, new Position(0, 2));
+            _game.InsertMotion(Token.X, new Position(2, 2));
+            _game.Board.Value.Should().BeEquivalentTo(expectedBoard);
         }
 
         [Test]
         public void InsertThirdMotionForPlayerO()
         {
             var expectedBoard = new[,] { { "[X]", "[O]", "[X]" }, { "[O]", "[O]", "[ ]" }, { "[ ]", "[ ]", "[X]" } };
-            _board.InsertMotion(Token.X, new Position(0, 0));
-            _board.InsertMotion(Token.O, new Position(0, 1));
-            _board.InsertMotion(Token.X, new Position(0, 2));
-            _board.InsertMotion(Token.O, new Position(1, 0));
-            _board.InsertMotion(Token.X, new Position(2, 2));
-            _board.InsertMotion(Token.O, new Position(1, 1));
-            _board.Value.Should().BeEquivalentTo(expectedBoard);
+            _game.InsertMotion(Token.X, new Position(0, 0));
+            _game.InsertMotion(Token.O, new Position(0, 1));
+            _game.InsertMotion(Token.X, new Position(0, 2));
+            _game.InsertMotion(Token.O, new Position(1, 0));
+            _game.InsertMotion(Token.X, new Position(2, 2));
+            _game.InsertMotion(Token.O, new Position(1, 1));
+            _game.Board.Value.Should().BeEquivalentTo(expectedBoard);
         }
 
         [Test]
         public void WhenPlayerXWinByFirstRowShowPlayerXWin()
         {
-            _board.InsertMotion(Token.X, new Position(0, 0));
-            _board.InsertMotion(Token.O, new Position(2, 2));
-            _board.InsertMotion(Token.X, new Position(0, 1));
-            _board.InsertMotion(Token.O, new Position(2, 1));
-            _board.InsertMotion(Token.X, new Position(0, 2));
-            var result = _board.HasWinnerPlayer();
+            _game.InsertMotion(Token.X, new Position(0, 0));
+            _game.InsertMotion(Token.O, new Position(2, 2));
+            _game.InsertMotion(Token.X, new Position(0, 1));
+            _game.InsertMotion(Token.O, new Position(2, 1));
+            _game.InsertMotion(Token.X, new Position(0, 2));
+            var result = _game.HasWinnerPlayer();
             result.Should().Be("Player X Win");
         }
 
         [Test]
         public void WhenPlayerOWinByFirstRowShowPlayerOWin()
         {
-            _board.InsertMotion(Token.O, new Position(0, 0));
-            _board.InsertMotion(Token.X, new Position(2, 2));
-            _board.InsertMotion(Token.O, new Position(0, 1));
-            _board.InsertMotion(Token.X, new Position(2, 1));
-            _board.InsertMotion(Token.O, new Position(0, 2));
-            var result = _board.HasWinnerPlayer();
+            _game.InsertMotion(Token.O, new Position(0, 0));
+            _game.InsertMotion(Token.X, new Position(2, 2));
+            _game.InsertMotion(Token.O, new Position(0, 1));
+            _game.InsertMotion(Token.X, new Position(2, 1));
+            _game.InsertMotion(Token.O, new Position(0, 2));
+            var result = _game.HasWinnerPlayer();
             result.Should().Be("Player O Win");
         }
 
         [Test]
         public void WhenPlayerXWinBySecondRowShowPlayerXWin()
         {
-            _board.InsertMotion(Token.X, new Position(1, 0));
-            _board.InsertMotion(Token.O, new Position(2, 2));
-            _board.InsertMotion(Token.X, new Position(1, 1));
-            _board.InsertMotion(Token.O, new Position(2, 1));
-            _board.InsertMotion(Token.X, new Position(1, 2));
-            var result = _board.HasWinnerPlayer();
+            _game.InsertMotion(Token.X, new Position(1, 0));
+            _game.InsertMotion(Token.O, new Position(2, 2));
+            _game.InsertMotion(Token.X, new Position(1, 1));
+            _game.InsertMotion(Token.O, new Position(2, 1));
+            _game.InsertMotion(Token.X, new Position(1, 2));
+            var result = _game.HasWinnerPlayer();
             result.Should().Be("Player X Win");
         }
 
         [Test]
         public void WhenPlayerOWinBySecondRowShowPlayerOWin()
         {
-            _board.InsertMotion(Token.O, new Position(1, 0));
-            _board.InsertMotion(Token.X, new Position(2, 2));
-            _board.InsertMotion(Token.O, new Position(1, 1));
-            _board.InsertMotion(Token.X, new Position(2, 1));
-            _board.InsertMotion(Token.O, new Position(1, 2));
-            var result = _board.HasWinnerPlayer();
+            _game.InsertMotion(Token.O, new Position(1, 0));
+            _game.InsertMotion(Token.X, new Position(2, 2));
+            _game.InsertMotion(Token.O, new Position(1, 1));
+            _game.InsertMotion(Token.X, new Position(2, 1));
+            _game.InsertMotion(Token.O, new Position(1, 2));
+            var result = _game.HasWinnerPlayer();
             result.Should().Be("Player O Win");
         }
 
         [Test]
         public void WhenPlayerXWinByThirdRowShowPlayerXWin()
         {
-            _board.InsertMotion(Token.X, new Position(2, 0));
-            _board.InsertMotion(Token.O, new Position(0, 2));
-            _board.InsertMotion(Token.X, new Position(2, 1));
-            _board.InsertMotion(Token.O, new Position(1, 1));
-            _board.InsertMotion(Token.X, new Position(2, 2));
-            var result = _board.HasWinnerPlayer();
+            _game.InsertMotion(Token.X, new Position(2, 0));
+            _game.InsertMotion(Token.O, new Position(0, 2));
+            _game.InsertMotion(Token.X, new Position(2, 1));
+            _game.InsertMotion(Token.O, new Position(1, 1));
+            _game.InsertMotion(Token.X, new Position(2, 2));
+            var result = _game.HasWinnerPlayer();
             result.Should().Be("Player X Win");
         }
 
         [Test]
         public void WhenPlayerOWinByThirdRowShowPlayerOWin()
         {
-            _board.InsertMotion(Token.O, new Position(2, 0));
-            _board.InsertMotion(Token.X, new Position(1, 2));
-            _board.InsertMotion(Token.O, new Position(2, 1));
-            _board.InsertMotion(Token.X, new Position(1, 1));
-            _board.InsertMotion(Token.O, new Position(2, 2));
-            var result = _board.HasWinnerPlayer();
+            _game.InsertMotion(Token.O, new Position(2, 0));
+            _game.InsertMotion(Token.X, new Position(1, 2));
+            _game.InsertMotion(Token.O, new Position(2, 1));
+            _game.InsertMotion(Token.X, new Position(1, 1));
+            _game.InsertMotion(Token.O, new Position(2, 2));
+            var result = _game.HasWinnerPlayer();
             result.Should().Be("Player O Win");
         }
 
         [Test]
         public void WhenPlayerXWinByFirstColumnShowPlayerXWin()
         {
-            _board.InsertMotion(Token.X, new Position(0, 0));
-            _board.InsertMotion(Token.O, new Position(2, 2));
-            _board.InsertMotion(Token.X, new Position(1, 0));
-            _board.InsertMotion(Token.O, new Position(2, 1));
-            _board.InsertMotion(Token.X, new Position(2, 0));
-            var result = _board.HasWinnerPlayer();
+            _game.InsertMotion(Token.X, new Position(0, 0));
+            _game.InsertMotion(Token.O, new Position(2, 2));
+            _game.InsertMotion(Token.X, new Position(1, 0));
+            _game.InsertMotion(Token.O, new Position(2, 1));
+            _game.InsertMotion(Token.X, new Position(2, 0));
+            var result = _game.HasWinnerPlayer();
             result.Should().Be("Player X Win");
         }
 
         [Test]
         public void WhenPlayerOWinByFirstColumnShowPlayerOWin()
         {
-            _board.InsertMotion(Token.O, new Position(0, 0));
-            _board.InsertMotion(Token.X, new Position(2, 2));
-            _board.InsertMotion(Token.O, new Position(1, 0));
-            _board.InsertMotion(Token.X, new Position(2, 1));
-            _board.InsertMotion(Token.O, new Position(2, 0));
-            var result = _board.HasWinnerPlayer();
+            _game.InsertMotion(Token.O, new Position(0, 0));
+            _game.InsertMotion(Token.X, new Position(2, 2));
+            _game.InsertMotion(Token.O, new Position(1, 0));
+            _game.InsertMotion(Token.X, new Position(2, 1));
+            _game.InsertMotion(Token.O, new Position(2, 0));
+            var result = _game.HasWinnerPlayer();
             result.Should().Be("Player O Win");
         }
 
         [Test]
         public void WhenPlayerXWinBySecondColumnShowPlayerXWin()
         {
-            _board.InsertMotion(Token.X, new Position(0, 1));
-            _board.InsertMotion(Token.O, new Position(2, 2));
-            _board.InsertMotion(Token.X, new Position(1, 1));
-            _board.InsertMotion(Token.O, new Position(2, 0));
-            _board.InsertMotion(Token.X, new Position(2, 1));
-            var result = _board.HasWinnerPlayer();
+            _game.InsertMotion(Token.X, new Position(0, 1));
+            _game.InsertMotion(Token.O, new Position(2, 2));
+            _game.InsertMotion(Token.X, new Position(1, 1));
+            _game.InsertMotion(Token.O, new Position(2, 0));
+            _game.InsertMotion(Token.X, new Position(2, 1));
+            var result = _game.HasWinnerPlayer();
             result.Should().Be("Player X Win");
         }
 
         [Test]
         public void WhenPlayerOWinBySecondColumnShowPlayerOWin()
         {
-            _board.InsertMotion(Token.O, new Position(0, 1));
-            _board.InsertMotion(Token.X, new Position(2, 2));
-            _board.InsertMotion(Token.O, new Position(1, 1));
-            _board.InsertMotion(Token.X, new Position(2, 0));
-            _board.InsertMotion(Token.O, new Position(2, 1));
-            var result = _board.HasWinnerPlayer();
+            _game.InsertMotion(Token.O, new Position(0, 1));
+            _game.InsertMotion(Token.X, new Position(2, 2));
+            _game.InsertMotion(Token.O, new Position(1, 1));
+            _game.InsertMotion(Token.X, new Position(2, 0));
+            _game.InsertMotion(Token.O, new Position(2, 1));
+            var result = _game.HasWinnerPlayer();
             result.Should().Be("Player O Win");
         }
 
         [Test]
         public void WhenPlayerXWinByThirdColumnShowPlayerXWin()
         {
-            _board.InsertMotion(Token.X, new Position(0, 2));
-            _board.InsertMotion(Token.O, new Position(2, 2));
-            _board.InsertMotion(Token.X, new Position(1, 2));
-            _board.InsertMotion(Token.O, new Position(2, 0));
-            _board.InsertMotion(Token.X, new Position(2, 2));
-            var result = _board.HasWinnerPlayer();
+            _game.InsertMotion(Token.X, new Position(0, 2));
+            _game.InsertMotion(Token.O, new Position(2, 2));
+            _game.InsertMotion(Token.X, new Position(1, 2));
+            _game.InsertMotion(Token.O, new Position(2, 0));
+            _game.InsertMotion(Token.X, new Position(2, 2));
+            var result = _game.HasWinnerPlayer();
             result.Should().Be("Player X Win");
         }
 
         [Test]
         public void WhenPlayerOWinByThirdColumnShowPlayer0Win()
         {
-            _board.InsertMotion(Token.O, new Position(0, 2));
-            _board.InsertMotion(Token.X, new Position(2, 2));
-            _board.InsertMotion(Token.O, new Position(1, 2));
-            _board.InsertMotion(Token.X, new Position(2, 0));
-            _board.InsertMotion(Token.O, new Position(2, 2));
-            var result = _board.HasWinnerPlayer();
+            _game.InsertMotion(Token.O, new Position(0, 2));
+            _game.InsertMotion(Token.X, new Position(2, 2));
+            _game.InsertMotion(Token.O, new Position(1, 2));
+            _game.InsertMotion(Token.X, new Position(2, 0));
+            _game.InsertMotion(Token.O, new Position(2, 2));
+            var result = _game.HasWinnerPlayer();
             result.Should().Be("Player O Win");
         }
     }
