@@ -32,7 +32,8 @@ public class Board
                    "[O][O][O]") ||
                IsPlayerWinByRow(2,
                    "[O][O][O]") ||
-               IsPlayerWinByColumn(0, "[O][O][O]");
+               IsPlayerWinByColumn(0, "[O][O][O]") ||
+               IsPlayerWinByColumn(1, "[O][O][O]");
     }
 
     private bool IsPlayerXWin()
@@ -43,7 +44,7 @@ public class Board
                    "[X][X][X]") ||
                IsPlayerWinByRow(2,
                    "[X][X][X]") ||
-               IsPlayerWinByColumn(0, "[X][X][X]") || 
+               IsPlayerWinByColumn(0, "[X][X][X]") ||
                IsPlayerWinByColumn(1, "[X][X][X]");
     }
 
