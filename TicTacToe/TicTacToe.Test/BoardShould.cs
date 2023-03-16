@@ -109,5 +109,29 @@ namespace TicTacToe.Test
             var result = _board.HasWinnerPlayer();
             result.Should().Be("Player Y Win");
         }
+
+        [Test]
+        public void WhenPlayerXWinBySecondRowShowPlayerXWin()
+        {
+            _board.InsertMotion("X", new Position(1, 0));
+            _board.InsertMotion("O", new Position(2, 2));
+            _board.InsertMotion("X", new Position(1, 1));
+            _board.InsertMotion("O", new Position(2, 1));
+            _board.InsertMotion("X", new Position(1, 2));
+            var result = _board.HasWinnerPlayer();
+            result.Should().Be("Player X Win");
+        }
+
+        [Test]
+        public void WhenPlayerYWinBySecondRowShowPlayerXWin()
+        {
+            _board.InsertMotion("O", new Position(1, 0));
+            _board.InsertMotion("X", new Position(2, 2));
+            _board.InsertMotion("O", new Position(1, 1));
+            _board.InsertMotion("X", new Position(2, 1));
+            _board.InsertMotion("O", new Position(1, 2));
+            var result = _board.HasWinnerPlayer();
+            result.Should().Be("Player O Win");
+        }
     }
 }
