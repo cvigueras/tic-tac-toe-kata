@@ -21,49 +21,45 @@ public class Board
 
     public string HasWinnerPlayer()
     {
-        if (IsPlayerXWinByFirstRow())
+        if (IsPlayerXWinByFirstRow() || IsPlayerXWinBySecondRow() || IsPlayerXWinByThirdRow())
         {
             return "Player X Win";
         }
-        if (IsPlayerXWinBySecondRow())
-        {
-            return "Player X Win";
-        }
-        if (IsPlayerYWinByFirstRow())
+
+        if (IsPlayerOWinByFirstRow() || IsPlayerOWinBySecondRow() || IsPlayerOWinByThirdRow())
         {
             return "Player O Win";
         }
 
-        if (IsPlayerXWinByThirdRow())
-        {
-            return "Player X Win";
-        }
-
-        if (Value[2, 0].Contains("O") && Value[2, 1].Contains("O") && Value[2, 2].Contains("O"))
-        {
-            return "Player O Win";
-        }
-
-        return "Player O Win";
+        return "Draw";
+    }
+    private bool IsPlayerXWinByFirstRow()
+    {
+        return Value[0, 0].Contains("X") && Value[0, 1].Contains("X") && Value[0, 2].Contains("X");
+    }
+    private bool IsPlayerXWinBySecondRow()
+    {
+        return Value[1, 0].Contains("X") && Value[1, 1].Contains("X") && Value[1, 2].Contains("X");
     }
 
     private bool IsPlayerXWinByThirdRow()
     {
         return Value[2, 0].Contains("X") && Value[2, 1].Contains("X") && Value[2, 2].Contains("X");
     }
-
-    private bool IsPlayerYWinByFirstRow()
+    private bool IsPlayerOWinByFirstRow()
+    {
+        return Value[0, 0].Contains("O") && Value[0, 1].Contains("O") && Value[0, 2].Contains("O");
+    }
+    private bool IsPlayerOWinBySecondRow()
     {
         return Value[1, 0].Contains("O") && Value[1, 1].Contains("O") && Value[1, 2].Contains("O");
     }
 
-    private bool IsPlayerXWinBySecondRow()
+    private bool IsPlayerOWinByThirdRow()
     {
-        return Value[1, 0].Contains("X") && Value[1, 1].Contains("X") && Value[1, 2].Contains("X");
+        return Value[2, 0].Contains("O") && Value[2, 1].Contains("O") && Value[2, 2].Contains("O");
     }
 
-    private bool IsPlayerXWinByFirstRow()
-    {
-        return Value[0, 0].Contains("X") && Value[0, 1].Contains("X") && Value[0, 2].Contains("X");
-    }
+
+
 }
