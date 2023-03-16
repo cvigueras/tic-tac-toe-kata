@@ -10,13 +10,14 @@ for (var i = 0; i < numeMatchs; i++)
     Console.WriteLine();
     Console.WriteLine("What player are you? ( X o O ):");
     var player = Console.ReadLine();
+    var token = player == "X" ? Token.X : Token.O;
     Console.WriteLine("Please write the coordinates to place your token (example ==> 1,0");
     var coordinates = Console.ReadLine();
     var coord = coordinates?.Split(',');
     var x = Convert.ToInt32(coord?[0]);
     var y = Convert.ToInt32(coord?[1]);
     Position position = new Position(x, y);
-    if (player != null) board?.InsertMotion(player, position);
+    if (player != null) board?.InsertMotion(token, position);
     if (board != null)
         for (var j = 0; j < board.Value.GetLength(0); j++)
         {

@@ -26,7 +26,7 @@ namespace TicTacToe.Test
         public void InsertFirstMotionForPlayerX()
         {
             var expectedBoard = new[,] { { "[X]", "[ ]", "[ ]" }, { "[ ]", "[ ]", "[ ]" }, { "[ ]", "[ ]", "[ ]" } };
-            _board.InsertMotion("X", new Position(0, 0));
+            _board.InsertMotion(Token.X, new Position(0, 0));
             _board.Value.Should().BeEquivalentTo(expectedBoard);
         }
 
@@ -34,9 +34,9 @@ namespace TicTacToe.Test
         public void InsertSecondMotionForPlayerX()
         {
             var expectedBoard = new[,] { { "[X]", "[O]", "[X]" }, { "[ ]", "[ ]", "[ ]" }, { "[ ]", "[ ]", "[ ]" } };
-            _board.InsertMotion("X", new Position(0, 0));
-            _board.InsertMotion("O", new Position(0, 1));
-            _board.InsertMotion("X", new Position(0, 2));
+            _board.InsertMotion(Token.X, new Position(0, 0));
+            _board.InsertMotion(Token.O, new Position(0, 1));
+            _board.InsertMotion(Token.X, new Position(0, 2));
             _board.Value.Should().BeEquivalentTo(expectedBoard);
         }
 
@@ -45,8 +45,8 @@ namespace TicTacToe.Test
         public void InsertFirstMotionForPlayerO()                                                                                                                                                                                                                                                                               
         {
             var expectedBoard = new[,] { { "[X]", "[O]", "[ ]" }, { "[ ]", "[ ]", "[ ]" }, { "[ ]", "[ ]", "[ ]" } };
-            _board.InsertMotion("X", new Position(0, 0));
-            _board.InsertMotion("O", new Position(0, 1));
+            _board.InsertMotion(Token.X, new Position(0, 0));
+            _board.InsertMotion(Token.O, new Position(0, 1));
             _board.Value.Should().BeEquivalentTo(expectedBoard);
         }
 
@@ -55,10 +55,10 @@ namespace TicTacToe.Test
         public void InsertSecondMotionForPlayerO()
         {
             var expectedBoard = new[,] { { "[X]", "[O]", "[X]" }, { "[O]", "[ ]", "[ ]" }, { "[ ]", "[ ]", "[ ]" } };
-            _board.InsertMotion("X", new Position(0, 0));
-            _board.InsertMotion("O", new Position(0, 1));
-            _board.InsertMotion("X", new Position(0, 2));
-            _board.InsertMotion("O", new Position(1, 0));
+            _board.InsertMotion(Token.X, new Position(0, 0));
+            _board.InsertMotion(Token.O, new Position(0, 1));
+            _board.InsertMotion(Token.X, new Position(0, 2));
+            _board.InsertMotion(Token.O, new Position(1, 0));
             _board.Value.Should().BeEquivalentTo(expectedBoard);
         }
 
@@ -66,10 +66,10 @@ namespace TicTacToe.Test
         public void InsertThirdMotionForPlayerX()
         {
             var expectedBoard = new[,] { { "[X]", "[O]", "[X]" }, { "[ ]", "[ ]", "[ ]" }, { "[ ]", "[ ]", "[X]" } };
-            _board.InsertMotion("X", new Position(0, 0));
-            _board.InsertMotion("O", new Position(0, 1));
-            _board.InsertMotion("X", new Position(0, 2));
-            _board.InsertMotion("X", new Position(2, 2));
+            _board.InsertMotion(Token.X, new Position(0, 0));
+            _board.InsertMotion(Token.O, new Position(0, 1));
+            _board.InsertMotion(Token.X, new Position(0, 2));
+            _board.InsertMotion(Token.X, new Position(2, 2));
             _board.Value.Should().BeEquivalentTo(expectedBoard);
         }
 
@@ -77,23 +77,23 @@ namespace TicTacToe.Test
         public void InsertThirdMotionForPlayerO()
         {
             var expectedBoard = new[,] { { "[X]", "[O]", "[X]" }, { "[O]", "[O]", "[ ]" }, { "[ ]", "[ ]", "[X]" } };
-            _board.InsertMotion("X", new Position(0, 0));
-            _board.InsertMotion("O", new Position(0, 1));
-            _board.InsertMotion("X", new Position(0, 2));
-            _board.InsertMotion("O", new Position(1, 0));
-            _board.InsertMotion("X", new Position(2, 2));
-            _board.InsertMotion("O", new Position(1, 1));
+            _board.InsertMotion(Token.X, new Position(0, 0));
+            _board.InsertMotion(Token.O, new Position(0, 1));
+            _board.InsertMotion(Token.X, new Position(0, 2));
+            _board.InsertMotion(Token.O, new Position(1, 0));
+            _board.InsertMotion(Token.X, new Position(2, 2));
+            _board.InsertMotion(Token.O, new Position(1, 1));
             _board.Value.Should().BeEquivalentTo(expectedBoard);
         }
 
         [Test]
         public void WhenPlayerXWinByFirstRowShowPlayerXWin()
         {
-            _board.InsertMotion("X", new Position(0, 0));
-            _board.InsertMotion("O", new Position(2, 2));
-            _board.InsertMotion("X", new Position(0, 1));
-            _board.InsertMotion("O", new Position(2, 1));
-            _board.InsertMotion("X", new Position(0, 2));
+            _board.InsertMotion(Token.X, new Position(0, 0));
+            _board.InsertMotion(Token.O, new Position(2, 2));
+            _board.InsertMotion(Token.X, new Position(0, 1));
+            _board.InsertMotion(Token.O, new Position(2, 1));
+            _board.InsertMotion(Token.X, new Position(0, 2));
             var result = _board.HasWinnerPlayer();
             result.Should().Be("Player X Win");
         }
@@ -101,11 +101,11 @@ namespace TicTacToe.Test
         [Test]
         public void WhenPlayerOWinByFirstRowShowPlayerOWin()
         {
-            _board.InsertMotion("O", new Position(0, 0));
-            _board.InsertMotion("X", new Position(2, 2));
-            _board.InsertMotion("O", new Position(0, 1));
-            _board.InsertMotion("X", new Position(2, 1));
-            _board.InsertMotion("O", new Position(0, 2));
+            _board.InsertMotion(Token.O, new Position(0, 0));
+            _board.InsertMotion(Token.X, new Position(2, 2));
+            _board.InsertMotion(Token.O, new Position(0, 1));
+            _board.InsertMotion(Token.X, new Position(2, 1));
+            _board.InsertMotion(Token.O, new Position(0, 2));
             var result = _board.HasWinnerPlayer();
             result.Should().Be("Player O Win");
         }
@@ -113,11 +113,11 @@ namespace TicTacToe.Test
         [Test]
         public void WhenPlayerXWinBySecondRowShowPlayerXWin()
         {
-            _board.InsertMotion("X", new Position(1, 0));
-            _board.InsertMotion("O", new Position(2, 2));
-            _board.InsertMotion("X", new Position(1, 1));
-            _board.InsertMotion("O", new Position(2, 1));
-            _board.InsertMotion("X", new Position(1, 2));
+            _board.InsertMotion(Token.X, new Position(1, 0));
+            _board.InsertMotion(Token.O, new Position(2, 2));
+            _board.InsertMotion(Token.X, new Position(1, 1));
+            _board.InsertMotion(Token.O, new Position(2, 1));
+            _board.InsertMotion(Token.X, new Position(1, 2));
             var result = _board.HasWinnerPlayer();
             result.Should().Be("Player X Win");
         }
@@ -125,11 +125,11 @@ namespace TicTacToe.Test
         [Test]
         public void WhenPlayerOWinBySecondRowShowPlayerOWin()
         {
-            _board.InsertMotion("O", new Position(1, 0));
-            _board.InsertMotion("X", new Position(2, 2));
-            _board.InsertMotion("O", new Position(1, 1));
-            _board.InsertMotion("X", new Position(2, 1));
-            _board.InsertMotion("O", new Position(1, 2));
+            _board.InsertMotion(Token.O, new Position(1, 0));
+            _board.InsertMotion(Token.X, new Position(2, 2));
+            _board.InsertMotion(Token.O, new Position(1, 1));
+            _board.InsertMotion(Token.X, new Position(2, 1));
+            _board.InsertMotion(Token.O, new Position(1, 2));
             var result = _board.HasWinnerPlayer();
             result.Should().Be("Player O Win");
         }
@@ -137,11 +137,11 @@ namespace TicTacToe.Test
         [Test]
         public void WhenPlayerXWinByThirdRowShowPlayerXWin()
         {
-            _board.InsertMotion("X", new Position(2, 0));
-            _board.InsertMotion("O", new Position(0, 2));
-            _board.InsertMotion("X", new Position(2, 1));
-            _board.InsertMotion("O", new Position(1, 1));
-            _board.InsertMotion("X", new Position(2, 2));
+            _board.InsertMotion(Token.X, new Position(2, 0));
+            _board.InsertMotion(Token.O, new Position(0, 2));
+            _board.InsertMotion(Token.X, new Position(2, 1));
+            _board.InsertMotion(Token.O, new Position(1, 1));
+            _board.InsertMotion(Token.X, new Position(2, 2));
             var result = _board.HasWinnerPlayer();
             result.Should().Be("Player X Win");
         }
@@ -149,11 +149,11 @@ namespace TicTacToe.Test
         [Test]
         public void WhenPlayerOWinByThirdRowShowPlayerOWin()
         {
-            _board.InsertMotion("O", new Position(2, 0));
-            _board.InsertMotion("X", new Position(1, 2));
-            _board.InsertMotion("O", new Position(2, 1));
-            _board.InsertMotion("X", new Position(1, 1));
-            _board.InsertMotion("O", new Position(2, 2));
+            _board.InsertMotion(Token.O, new Position(2, 0));
+            _board.InsertMotion(Token.X, new Position(1, 2));
+            _board.InsertMotion(Token.O, new Position(2, 1));
+            _board.InsertMotion(Token.X, new Position(1, 1));
+            _board.InsertMotion(Token.O, new Position(2, 2));
             var result = _board.HasWinnerPlayer();
             result.Should().Be("Player O Win");
         }
@@ -161,11 +161,11 @@ namespace TicTacToe.Test
         [Test]
         public void WhenPlayerXWinByFirstColumnShowPlayerXWin()
         {
-            _board.InsertMotion("X", new Position(0, 0));
-            _board.InsertMotion("O", new Position(2, 2));
-            _board.InsertMotion("X", new Position(1, 0));
-            _board.InsertMotion("O", new Position(2, 1));
-            _board.InsertMotion("X", new Position(2, 0));
+            _board.InsertMotion(Token.X, new Position(0, 0));
+            _board.InsertMotion(Token.O, new Position(2, 2));
+            _board.InsertMotion(Token.X, new Position(1, 0));
+            _board.InsertMotion(Token.O, new Position(2, 1));
+            _board.InsertMotion(Token.X, new Position(2, 0));
             var result = _board.HasWinnerPlayer();
             result.Should().Be("Player X Win");
         }
@@ -173,11 +173,11 @@ namespace TicTacToe.Test
         [Test]
         public void WhenPlayerOWinByFirstColumnShowPlayerOWin()
         {
-            _board.InsertMotion("O", new Position(0, 0));
-            _board.InsertMotion("X", new Position(2, 2));
-            _board.InsertMotion("O", new Position(1, 0));
-            _board.InsertMotion("X", new Position(2, 1));
-            _board.InsertMotion("O", new Position(2, 0));
+            _board.InsertMotion(Token.O, new Position(0, 0));
+            _board.InsertMotion(Token.X, new Position(2, 2));
+            _board.InsertMotion(Token.O, new Position(1, 0));
+            _board.InsertMotion(Token.X, new Position(2, 1));
+            _board.InsertMotion(Token.O, new Position(2, 0));
             var result = _board.HasWinnerPlayer();
             result.Should().Be("Player O Win");
         }
@@ -185,11 +185,11 @@ namespace TicTacToe.Test
         [Test]
         public void WhenPlayerXWinBySecondColumnShowPlayerXWin()
         {
-            _board.InsertMotion("X", new Position(0, 1));
-            _board.InsertMotion("O", new Position(2, 2));
-            _board.InsertMotion("X", new Position(1, 1));
-            _board.InsertMotion("O", new Position(2, 0));
-            _board.InsertMotion("X", new Position(2, 1));
+            _board.InsertMotion(Token.X, new Position(0, 1));
+            _board.InsertMotion(Token.O, new Position(2, 2));
+            _board.InsertMotion(Token.X, new Position(1, 1));
+            _board.InsertMotion(Token.O, new Position(2, 0));
+            _board.InsertMotion(Token.X, new Position(2, 1));
             var result = _board.HasWinnerPlayer();
             result.Should().Be("Player X Win");
         }
@@ -197,11 +197,11 @@ namespace TicTacToe.Test
         [Test]
         public void WhenPlayerOWinBySecondColumnShowPlayerOWin()
         {
-            _board.InsertMotion("O", new Position(0, 1));
-            _board.InsertMotion("X", new Position(2, 2));
-            _board.InsertMotion("O", new Position(1, 1));
-            _board.InsertMotion("X", new Position(2, 0));
-            _board.InsertMotion("O", new Position(2, 1));
+            _board.InsertMotion(Token.O, new Position(0, 1));
+            _board.InsertMotion(Token.X, new Position(2, 2));
+            _board.InsertMotion(Token.O, new Position(1, 1));
+            _board.InsertMotion(Token.X, new Position(2, 0));
+            _board.InsertMotion(Token.O, new Position(2, 1));
             var result = _board.HasWinnerPlayer();
             result.Should().Be("Player O Win");
         }
@@ -209,11 +209,11 @@ namespace TicTacToe.Test
         [Test]
         public void WhenPlayerXWinByThirdColumnShowPlayerXWin()
         {
-            _board.InsertMotion("X", new Position(0, 2));
-            _board.InsertMotion("O", new Position(2, 2));
-            _board.InsertMotion("X", new Position(1, 2));
-            _board.InsertMotion("O", new Position(2, 0));
-            _board.InsertMotion("X", new Position(2, 2));
+            _board.InsertMotion(Token.X, new Position(0, 2));
+            _board.InsertMotion(Token.O, new Position(2, 2));
+            _board.InsertMotion(Token.X, new Position(1, 2));
+            _board.InsertMotion(Token.O, new Position(2, 0));
+            _board.InsertMotion(Token.X, new Position(2, 2));
             var result = _board.HasWinnerPlayer();
             result.Should().Be("Player X Win");
         }
@@ -221,11 +221,11 @@ namespace TicTacToe.Test
         [Test]
         public void WhenPlayerOWinByThirdColumnShowPlayer0Win()
         {
-            _board.InsertMotion("O", new Position(0, 2));
-            _board.InsertMotion("X", new Position(2, 2));
-            _board.InsertMotion("O", new Position(1, 2));
-            _board.InsertMotion("X", new Position(2, 0));
-            _board.InsertMotion("O", new Position(2, 2));
+            _board.InsertMotion(Token.O, new Position(0, 2));
+            _board.InsertMotion(Token.X, new Position(2, 2));
+            _board.InsertMotion(Token.O, new Position(1, 2));
+            _board.InsertMotion(Token.X, new Position(2, 0));
+            _board.InsertMotion(Token.O, new Position(2, 2));
             var result = _board.HasWinnerPlayer();
             result.Should().Be("Player O Win");
         }

@@ -9,8 +9,8 @@ public class Board
     private Board(string[,] value)
     {
         Value = value;
-        _playerX = Player.Create("X", "[X][X][X]");
-        _playerO = Player.Create("Y", "[O][O][O]");
+        _playerX = Player.Create(Token.X, "[X][X][X]");
+        _playerO = Player.Create(Token.O, "[O][O][O]");
     }
 
     public static Board? Create(string[,] value)
@@ -18,9 +18,9 @@ public class Board
         return new Board(value);
     }
 
-    public void InsertMotion(string player, Position position)
+    public void InsertMotion(Token token, Position position)
     {
-        Value[position.X, position.Y] = $"[{player}]";
+        Value[position.X, position.Y] = $"[{token}]";
     }
 
     public string HasWinnerPlayer()
