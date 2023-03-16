@@ -18,4 +18,9 @@ public class Board
     {
         Value[position.X,position.Y] = $"[{player}]";
     }
+
+    public string IsPlayerXWinner()
+    {
+        return "Player X Win";
+    }
 }

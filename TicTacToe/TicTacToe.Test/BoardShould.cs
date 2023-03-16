@@ -85,5 +85,18 @@ namespace TicTacToe.Test
             _board.InsertMotion("O", new Position(1, 1));
             _board.Value.Should().BeEquivalentTo(expectedBoard);
         }
+
+        [Test]
+        public void WhenPlayerXWinByFirstRowShowPlayerXWin()
+        {
+            var expectedBoard = new[,] { { "[X]", "[X]", "[X]" }, { "[ ]", "[ ]", "[ ]" }, { "[ ]", "[O]", "[O]" } };
+            _board.InsertMotion("X", new Position(0, 0));
+            _board.InsertMotion("O", new Position(2, 2));
+            _board.InsertMotion("X", new Position(0, 1));
+            _board.InsertMotion("O", new Position(2, 1));
+            _board.InsertMotion("X", new Position(0, 2));
+            var result = _board.IsPlayerXWinner();
+            result.Should().Be("Player X Win");
+        }
     }
 }
