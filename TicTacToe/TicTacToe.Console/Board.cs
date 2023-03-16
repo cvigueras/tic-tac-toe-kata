@@ -31,6 +31,11 @@ public class Board
             return "Player O Win";
         }
 
+        if (Value[0, 0].Contains("X") && Value[1, 0].Contains("X") && Value[2, 0].Contains("X"))
+        {
+            return "Player X Win";
+        }
+
         return "Draw";
     }
     private bool IsPlayerXWinByFirstRow()
@@ -59,7 +64,4 @@ public class Board
     {
         return Value[2, 0].Contains("O") && Value[2, 1].Contains("O") && Value[2, 2].Contains("O");
     }
-
-
-
 }
