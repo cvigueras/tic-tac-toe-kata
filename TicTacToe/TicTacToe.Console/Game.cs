@@ -35,12 +35,12 @@ public class Game
                    player.MatchPlayerWin) ||
                IsPlayerWinByRow(2,
                    player.MatchPlayerWin) ||
-               IsPlayerWinByColumn(0, player) ||
-               IsPlayerWinByColumn(1, player) ||
-               IsPlayerWinByColumn(2, player);
+               IsPlayerWinByColumn(new Position(0,0), player) ||
+               IsPlayerWinByColumn(new Position(0,1), player) ||
+               IsPlayerWinByColumn(new Position(0, 2), player);
     }
 
-    private bool IsPlayerWinByColumn(int numberColumn, Player player)
+    private bool IsPlayerWinByColumn(Position position, Player player)
     {
         var isWinner = string.Empty;
         if (_board != null)
@@ -49,7 +49,7 @@ public class Game
             {
                 for (var j = 0; j < _board.Value.GetLength(1); j++)
                 {
-                    if (j == numberColumn)
+                    if (j == position.Y)
                     {
                         isWinner += _board.Value[i, j];
                     }
