@@ -34,6 +34,11 @@ public class Board
             return "Player O Win";
         }
 
+        if (Value[2, 0].Contains("X") && Value[2, 1].Contains("X") && Value[2, 2].Contains("X"))
+        {
+            return "Player X Win";
+        }
+
         return "Player Y Win";
     }
 
