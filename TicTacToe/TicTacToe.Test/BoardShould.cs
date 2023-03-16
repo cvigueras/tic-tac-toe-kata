@@ -217,5 +217,17 @@ namespace TicTacToe.Test
             var result = _board.HasWinnerPlayer();
             result.Should().Be("Player X Win");
         }
+
+        [Test]
+        public void WhenPlayerOWinByThirdColumnShowPlayer0Win()
+        {
+            _board.InsertMotion("O", new Position(0, 2));
+            _board.InsertMotion("X", new Position(2, 2));
+            _board.InsertMotion("O", new Position(1, 2));
+            _board.InsertMotion("X", new Position(2, 0));
+            _board.InsertMotion("O", new Position(2, 2));
+            var result = _board.HasWinnerPlayer();
+            result.Should().Be("Player O Win");
+        }
     }
 }
