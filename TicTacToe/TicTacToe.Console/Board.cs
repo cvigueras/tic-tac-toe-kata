@@ -16,11 +16,16 @@ public class Board
 
     public void InsertMotion(string player, Position position)
     {
-        Value[position.X,position.Y] = $"[{player}]";
+        Value[position.X, position.Y] = $"[{player}]";
     }
 
-    public string IsPlayerXWinner()
+    public string HasWinnerPlayer()
     {
-        return "Player X Win";
+        if (Value[0, 0].Contains("X") && Value[0, 1].Contains("X") && Value[0, 2].Contains("X"))
+        {
+            return "Player X Win";
+        }
+
+        return "Player Y Win";
     }
 }
