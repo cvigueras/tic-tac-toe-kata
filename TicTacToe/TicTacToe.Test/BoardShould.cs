@@ -241,5 +241,17 @@ namespace TicTacToe.Test
             var result = _game.HasWinnerPlayer();
             result.Should().Be("Player X Win");
         }
+
+        [Test]
+        public void WhenPlayerXWinBySecondDiagonalShowPlayerXWin()
+        {
+            _game.InsertMotion(Token.X, new Position(2, 0));
+            _game.InsertMotion(Token.O, new Position(2, 1));
+            _game.InsertMotion(Token.X, new Position(1, 1));
+            _game.InsertMotion(Token.O, new Position(2, 2));
+            _game.InsertMotion(Token.X, new Position(0, 2));
+            var result = _game.HasWinnerPlayer();
+            result.Should().Be("Player X Win");
+        }
     }
 }
