@@ -24,6 +24,10 @@ public class Game
 
     public string HasWinnerPlayer()
     {
+        if (_board.Value[0, 0] == "[X]" && _board.Value[1, 1] == "[X]" && _board.Value[2, 2] == "[X]")
+        {
+            return "Player X Win";
+        }
         return IsPlayerWin(_playerX) ? "Player X Win" : IsPlayerWin(_playerO) ? "Player O Win" : "Draw";
     }
 
