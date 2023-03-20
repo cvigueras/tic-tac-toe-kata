@@ -32,6 +32,10 @@ public class Game
         {
             return "Player X Win";
         }
+        if (_board.Value[0, 0] == "[O]" && _board.Value[1, 1] == "[O]" && _board.Value[2, 2] == "[O]")
+        {
+            return "Player Y Win";
+        }
         return IsPlayerWin(_playerX) ? "Player X Win" : IsPlayerWin(_playerO) ? "Player O Win" : "Draw";
     }
 
