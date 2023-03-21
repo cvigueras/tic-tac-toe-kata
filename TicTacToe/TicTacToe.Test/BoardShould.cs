@@ -210,7 +210,7 @@ namespace TicTacToe.Test
         public void WhenPlayerXWinByThirdColumnShowPlayerXWin()
         {
             _game.InsertMotion(Token.X, new Position(0, 2));
-            _game.InsertMotion(Token.O, new Position(2, 2));
+            _game.InsertMotion(Token.O, new Position(1, 1));
             _game.InsertMotion(Token.X, new Position(1, 2));
             _game.InsertMotion(Token.O, new Position(2, 0));
             _game.InsertMotion(Token.X, new Position(2, 2));
@@ -222,7 +222,7 @@ namespace TicTacToe.Test
         public void WhenPlayerOWinByThirdColumnShowPlayer0Win()
         {
             _game.InsertMotion(Token.O, new Position(0, 2));
-            _game.InsertMotion(Token.X, new Position(2, 2));
+            _game.InsertMotion(Token.X, new Position(1, 1));
             _game.InsertMotion(Token.O, new Position(1, 2));
             _game.InsertMotion(Token.X, new Position(2, 0));
             _game.InsertMotion(Token.O, new Position(2, 2));
@@ -276,6 +276,14 @@ namespace TicTacToe.Test
             _game.InsertMotion(Token.O, new Position(0, 2));
             var result = _game.HasWinnerPlayer();
             result.Should().Be("Player O Win");
+        }
+
+        [Test]
+        public void ThrowExceptionWhenFieldIsTaken()
+        {
+            _game.InsertMotion(Token.X, new Position(2, 0));
+            Action wrongPlay = () => _game.InsertMotion(Token.O, new Position(2, 0));
+            wrongPlay.Should().Throw<Exception>("Invalid movement!");
         }
     }
 }

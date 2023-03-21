@@ -20,6 +20,10 @@ public class Game
     {
         if (Board != null)
         {
+            if (!Board.Value[position.X, position.Y].Equals("[ ]"))
+            {
+                throw new Exception("Invalid movement!");
+            }
             Board.Value[position.X, position.Y] = $"[{token}]";
         }
     }
@@ -35,12 +39,9 @@ public class Game
 
     private bool IsPlayerWin(Player player)
     {
-        return IsPlayerWinByRow(0,
-                   player.MatchPlayerWin) ||
-               IsPlayerWinByRow(1,
-                   player.MatchPlayerWin) ||
-               IsPlayerWinByRow(2,
-                   player.MatchPlayerWin) ||
+        return IsPlayerWinByRow(new Position(0, 0), player) ||
+               IsPlayerWinByRow(new Position(1, 0), player) ||
+               IsPlayerWinByRow(new Position(2, 0), player) ||
                IsPlayerWinByColumn(new Position(0, 0), player) ||
                IsPlayerWinByColumn(new Position(0, 1), player) ||
                IsPlayerWinByColumn(new Position(0, 2), player);
@@ -73,21 +74,21 @@ public class Game
         return isWinner.Equals(player.MatchPlayerWin);
     }
 
-    private bool IsPlayerWinByRow(int numberRow, string matchPlayerWin)
+    private bool IsPlayerWinByRow(Position position, Player player)
     {
         var isWinner = string.Empty;
-        if (Board == null) return isWinner.Equals(matchPlayerWin);
+        if (Board == null) return isWinner.Equals(player.MatchPlayerWin);
         for (var i = 0; i < Board.Value.GetLength(0); i++)
         {
             for (var j = 0; j < Board.Value.GetLength(1); j++)
             {
-                if (i == numberRow)
+                if (i == position.X)
                 {
                     isWinner += Board.Value[i, j];
                 }
             }
         }
 
-        return isWinner.Equals(matchPlayerWin);
+        return isWinner.Equals(player.MatchPlayerWin);
     }
 }
