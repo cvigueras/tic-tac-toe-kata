@@ -2,45 +2,35 @@
 
 public class Game
 {
-    private readonly Board? _board;
     private readonly Player _playerX;
     private readonly Player _playerO;
-    public Board? Board => _board;
+    private const string PlayerXWin = "Player X Win";
+    private const string PlayerOWin = "Player O Win";
+    private const string Draw = "Draw";
+    public Board? Board { get; }
 
     public Game()
     {
         _playerX = Player.Create(Token.X, "[X][X][X]");
         _playerO = Player.Create(Token.O, "[O][O][O]");
-        _board = Board.Create(new[,] { { "[ ]", "[ ]", "[ ]" }, { "[ ]", "[ ]", "[ ]" }, { "[ ]", "[ ]", "[ ]" } });
+        Board = Board.Create(new[,] { { "[ ]", "[ ]", "[ ]" }, { "[ ]", "[ ]", "[ ]" }, { "[ ]", "[ ]", "[ ]" } });
     }
 
     public void InsertMotion(Token token, Position position)
     {
-        if (_board != null)
+        if (Board != null)
         {
-            _board.Value[position.X, position.Y] = $"[{token}]";
+            Board.Value[position.X, position.Y] = $"[{token}]";
         }
     }
 
     public string HasWinnerPlayer()
     {
-        if (_board.Value[0, 0] == "[X]" && _board.Value[1, 1] == "[X]" && _board.Value[2, 2] == "[X]")
-        {
-            return "Player X Win";
-        }
-        if (_board.Value[2, 0] == "[X]" && _board.Value[1, 1] == "[X]" && _board.Value[0, 2] == "[X]")
-        {
-            return "Player X Win";
-        }
-        if (_board.Value[0, 0] == "[O]" && _board.Value[1, 1] == "[O]" && _board.Value[2, 2] == "[O]")
-        {
-            return "Player Y Win";
-        }
-        if (_board.Value[2, 0] == "[O]" && _board.Value[1, 1] == "[O]" && _board.Value[0, 2] == "[O]")
-        {
-            return "Player Y Win";
-        }
-        return IsPlayerWin(_playerX) ? "Player X Win" : IsPlayerWin(_playerO) ? "Player O Win" : "Draw";
+        if (IsPlayerWinByDiagonal(_playerX)) return PlayerXWin;
+        if (IsPlayerWin(_playerX)) return PlayerXWin;
+        if (IsPlayerWinByDiagonal(_playerO)) return PlayerOWin;
+        if (IsPlayerWin(_playerO)) return PlayerOWin;
+        return Draw;
     }
 
     private bool IsPlayerWin(Player player)
@@ -51,24 +41,31 @@ public class Game
                    player.MatchPlayerWin) ||
                IsPlayerWinByRow(2,
                    player.MatchPlayerWin) ||
-               IsPlayerWinByColumn(new Position(0,0), player) ||
-               IsPlayerWinByColumn(new Position(0,1), player) ||
+               IsPlayerWinByColumn(new Position(0, 0), player) ||
+               IsPlayerWinByColumn(new Position(0, 1), player) ||
                IsPlayerWinByColumn(new Position(0, 2), player);
     }
+
+
+    private bool IsPlayerWinByDiagonal(Player player)
+    {
+        return Board?.Value[2, 0] + Board?.Value[1, 1] +
+            Board?.Value[0, 2] == player.MatchPlayerWin || Board?.Value[0, 0] + Board?.Value[1, 1] +
+            Board?.Value[2, 2] == player.MatchPlayerWin;
+    }
+
 
     private bool IsPlayerWinByColumn(Position position, Player player)
     {
         var isWinner = string.Empty;
-        if (_board != null)
+        if (Board == null) return isWinner.Equals(player.MatchPlayerWin);
+        for (var i = 0; i < Board.Value.GetLength(0); i++)
         {
-            for (var i = 0; i < _board.Value.GetLength(0); i++)
+            for (var j = 0; j < Board.Value.GetLength(1); j++)
             {
-                for (var j = 0; j < _board.Value.GetLength(1); j++)
+                if (j == position.Y)
                 {
-                    if (j == position.Y)
-                    {
-                        isWinner += _board.Value[i, j];
-                    }
+                    isWinner += Board.Value[i, j];
                 }
             }
         }
@@ -79,16 +76,14 @@ public class Game
     private bool IsPlayerWinByRow(int numberRow, string matchPlayerWin)
     {
         var isWinner = string.Empty;
-        if (_board != null)
+        if (Board == null) return isWinner.Equals(matchPlayerWin);
+        for (var i = 0; i < Board.Value.GetLength(0); i++)
         {
-            for (var i = 0; i < _board.Value.GetLength(0); i++)
+            for (var j = 0; j < Board.Value.GetLength(1); j++)
             {
-                for (var j = 0; j < _board.Value.GetLength(1); j++)
+                if (i == numberRow)
                 {
-                    if (i == numberRow)
-                    {
-                        isWinner += _board.Value[i, j];
-                    }
+                    isWinner += Board.Value[i, j];
                 }
             }
         }

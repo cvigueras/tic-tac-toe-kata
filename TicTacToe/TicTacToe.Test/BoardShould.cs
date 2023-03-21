@@ -263,7 +263,7 @@ namespace TicTacToe.Test
             _game.InsertMotion(Token.X, new Position(2, 0));
             _game.InsertMotion(Token.O, new Position(2, 2));
             var result = _game.HasWinnerPlayer();
-            result.Should().Be("Player Y Win");
+            result.Should().Be("Player O Win");
         }
 
         [Test]
@@ -275,7 +275,7 @@ namespace TicTacToe.Test
             _game.InsertMotion(Token.X, new Position(2, 2));
             _game.InsertMotion(Token.O, new Position(0, 2));
             var result = _game.HasWinnerPlayer();
-            result.Should().Be("Player Y Win");
+            result.Should().Be("Player O Win");
         }
     }
 }

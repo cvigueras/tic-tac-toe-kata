@@ -2,7 +2,7 @@
 
 public enum Token
 {
-    None,
+    None = 0,
     X,
     O,
 }
