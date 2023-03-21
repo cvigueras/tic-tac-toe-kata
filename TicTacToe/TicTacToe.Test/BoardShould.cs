@@ -27,7 +27,7 @@ namespace TicTacToe.Test
         {
             var expectedBoard = new[,] { { "[X]", "[ ]", "[ ]" }, { "[ ]", "[ ]", "[ ]" }, { "[ ]", "[ ]", "[ ]" } };
             _game.InsertMotion(Token.X, new Position(0, 0));
-            _game.Board.Value.Should().BeEquivalentTo(expectedBoard);
+            _game.Board?.Value.Should().BeEquivalentTo(expectedBoard);
         }
 
         [Test]
@@ -37,7 +37,7 @@ namespace TicTacToe.Test
             _game.InsertMotion(Token.X, new Position(0, 0));
             _game.InsertMotion(Token.O, new Position(0, 1));
             _game.InsertMotion(Token.X, new Position(0, 2));
-            _game.Board.Value.Should().BeEquivalentTo(expectedBoard);
+            _game.Board?.Value.Should().BeEquivalentTo(expectedBoard);
         }
 
 
@@ -47,7 +47,7 @@ namespace TicTacToe.Test
             var expectedBoard = new[,] { { "[X]", "[O]", "[ ]" }, { "[ ]", "[ ]", "[ ]" }, { "[ ]", "[ ]", "[ ]" } };
             _game.InsertMotion(Token.X, new Position(0, 0));
             _game.InsertMotion(Token.O, new Position(0, 1));
-            _game.Board.Value.Should().BeEquivalentTo(expectedBoard);
+            _game.Board?.Value.Should().BeEquivalentTo(expectedBoard);
         }
 
 
@@ -59,7 +59,7 @@ namespace TicTacToe.Test
             _game.InsertMotion(Token.O, new Position(0, 1));
             _game.InsertMotion(Token.X, new Position(0, 2));
             _game.InsertMotion(Token.O, new Position(1, 0));
-            _game.Board.Value.Should().BeEquivalentTo(expectedBoard);
+            _game.Board?.Value.Should().BeEquivalentTo(expectedBoard);
         }
 
         [Test]
@@ -70,7 +70,7 @@ namespace TicTacToe.Test
             _game.InsertMotion(Token.O, new Position(0, 1));
             _game.InsertMotion(Token.X, new Position(0, 2));
             _game.InsertMotion(Token.X, new Position(2, 2));
-            _game.Board.Value.Should().BeEquivalentTo(expectedBoard);
+            _game.Board?.Value.Should().BeEquivalentTo(expectedBoard);
         }
 
         [Test]
@@ -83,7 +83,7 @@ namespace TicTacToe.Test
             _game.InsertMotion(Token.O, new Position(1, 0));
             _game.InsertMotion(Token.X, new Position(2, 2));
             _game.InsertMotion(Token.O, new Position(1, 1));
-            _game.Board.Value.Should().BeEquivalentTo(expectedBoard);
+            _game.Board?.Value.Should().BeEquivalentTo(expectedBoard);
         }
 
         [Test]
@@ -291,6 +291,22 @@ namespace TicTacToe.Test
         {
             Action wrongPlay = () => _game.InsertMotion(Token.O, new Position(2, 3));
             wrongPlay.Should().Throw<Exception>("Invalid movement!");
+        }
+
+        [Test]
+        public void WhenPlayersDrawShowDraw()
+        {
+            _game.InsertMotion(Token.X, new Position(0, 1));
+            _game.InsertMotion(Token.O, new Position(0,0));
+            _game.InsertMotion(Token.X, new Position(1,0));
+            _game.InsertMotion(Token.O, new Position(0,2));
+            _game.InsertMotion(Token.X, new Position(1,1));
+            _game.InsertMotion(Token.O, new Position(1,2));
+            _game.InsertMotion(Token.X, new Position(2,0));
+            _game.InsertMotion(Token.O, new Position(2,1));
+            _game.InsertMotion(Token.X, new Position(2,2));
+            var result = _game.HasWinnerPlayer();
+            result.Should().Be("Draw");
         }
     }
 }
