@@ -2,11 +2,9 @@
 
 public class Game
 {
-    private readonly Player _playerX;
-    private readonly Player _playerO;
-    private string _winMessage = $"";
-    private const string PlayerXWinMessage = "Player X Win";
-    private const string PlayerOWinMessage = "Player O Win";
+    private readonly Player? _playerX;
+    private readonly Player? _playerO;
+    private Player? _playerWin;
     private int _maxNumbersPlays = 0;
     private const string Draw = "Draw";
     public Board? Board { get; }
@@ -35,10 +33,10 @@ public class Game
         return Board != null && position is { X: <= 2, Y: <= 2 } && Board.Value[position.X, position.Y].Equals("[ ]");
     }
 
-    public string HasWinnerPlayer()
+    public string? HasWinnerPlayer()
     {
         SetPlayerWin();
-        return _maxNumbersPlays <9 ? _winMessage : Draw;
+        return _maxNumbersPlays < 9 ? _playerWin?.WinMessage : Draw;
     }
 
     private void SetPlayerWin()
@@ -51,14 +49,14 @@ public class Game
     }
 
 
-    private void IsPlayerWinByDiagonal(Player player)
+    private void IsPlayerWinByDiagonal(Player? player)
     {
         if(Board?.Value[2, 0] + Board?.Value[1, 1] +
-            Board?.Value[0, 2] == player.MatchPlayerWin)
-            _winMessage = player.Token.ToString() == "X" ? PlayerXWinMessage : PlayerOWinMessage;
+            Board?.Value[0, 2] == player?.MatchPlayerWin)
+            _playerWin = player;
         if(Board?.Value[0, 0] + Board?.Value[1, 1] +
-            Board?.Value[2, 2] == player.MatchPlayerWin)
-            _winMessage = player.Token.ToString() == "X" ? PlayerXWinMessage : PlayerOWinMessage;
+            Board?.Value[2, 2] == player?.MatchPlayerWin)
+            _playerWin = player;
     }
 
 
@@ -81,11 +79,11 @@ public class Game
             }
         }
 
-        if (isWinnerByRow.Equals(_playerX.MatchPlayerWin) ||
-            isWinnerByColumn.Equals(_playerX.MatchPlayerWin))
-            _winMessage = PlayerXWinMessage;
-        if (isWinnerByRow.Equals(_playerO.MatchPlayerWin) ||
-            isWinnerByColumn.Equals(_playerO.MatchPlayerWin))
-            _winMessage = PlayerOWinMessage;
+        if (isWinnerByRow.Equals(_playerX?.MatchPlayerWin) ||
+            isWinnerByColumn.Equals(_playerX?.MatchPlayerWin))
+            _playerWin = _playerX;
+        if (isWinnerByRow.Equals(_playerO?.MatchPlayerWin) ||
+            isWinnerByColumn.Equals(_playerO?.MatchPlayerWin))
+            _playerWin = _playerO;
     }
 }
