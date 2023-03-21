@@ -4,8 +4,7 @@ public class Game
 {
     private readonly Player? _playerX;
     private readonly Player? _playerO;
-    private Player? _playerWin;
-    private int _maxNumbersPlays = 0;
+    private int _maxNumbersPlays = 1;
     private const string Draw = "Draw";
     public Board? Board { get; }
 
@@ -24,8 +23,39 @@ public class Game
             throw new Exception("Invalid movement!");
         }
 
-        _maxNumbersPlays++;
+        if (!IsValidTurn(token))
+        {
+            throw new Exception("Invalid movement!");
+        }
+
         Board.Value[position.X, position.Y] = $"[{token}]";
+        _maxNumbersPlays++;
+
+        SetTurn();
+    }
+
+    public Token GetCurrentTokenPlayer()
+    {
+        return _playerX.IsMyTurn ? Token.X : _playerO.IsMyTurn ? Token.O : Token.X;
+    }
+
+    private bool IsValidTurn(Token token)
+    {
+        return _playerO != null && _playerX != null && ((token == Token.X && _playerX.IsMyTurn) || (token == Token.O && _playerO.IsMyTurn));
+    }
+
+    private void SetTurn()
+    {
+        if (_maxNumbersPlays % 2 != 0)
+        {
+            if (_playerX != null) _playerX.IsMyTurn = true;
+            if (_playerO != null) _playerO.IsMyTurn = false;
+        }
+        else if (_maxNumbersPlays % 2 == 0)
+        {
+            if (_playerO != null) _playerO.IsMyTurn = true;
+            if (_playerX != null) _playerX.IsMyTurn = false;
+        }
     }
 
     private bool IsValidMovement(Position position)
@@ -36,7 +66,9 @@ public class Game
     public string? HasWinnerPlayer()
     {
         SetPlayerWin();
-        return _maxNumbersPlays < 9 ? _playerWin?.WinMessage : Draw;
+        return _maxNumbersPlays <= 9
+            ? _playerX is { IsWinner: true } ? _playerX.WinMessage : _playerO is { IsWinner: true } ? _playerO.WinMessage : string.Empty
+            : Draw;
     }
 
     private void SetPlayerWin()
@@ -51,12 +83,12 @@ public class Game
 
     private void IsPlayerWinByDiagonal(Player? player)
     {
-        if(Board?.Value[2, 0] + Board?.Value[1, 1] +
+        if (Board?.Value[2, 0] + Board?.Value[1, 1] +
             Board?.Value[0, 2] == player?.MatchPlayerWin)
-            _playerWin = player;
-        if(Board?.Value[0, 0] + Board?.Value[1, 1] +
+            player.IsWinner = true;
+        if (Board?.Value[0, 0] + Board?.Value[1, 1] +
             Board?.Value[2, 2] == player?.MatchPlayerWin)
-            _playerWin = player;
+            player.IsWinner = true;
     }
 
 
@@ -81,9 +113,9 @@ public class Game
 
         if (isWinnerByRow.Equals(_playerX?.MatchPlayerWin) ||
             isWinnerByColumn.Equals(_playerX?.MatchPlayerWin))
-            _playerWin = _playerX;
+            _playerX.IsWinner = true;
         if (isWinnerByRow.Equals(_playerO?.MatchPlayerWin) ||
             isWinnerByColumn.Equals(_playerO?.MatchPlayerWin))
-            _playerWin = _playerO;
+            _playerO.IsWinner = true;
     }
 }
