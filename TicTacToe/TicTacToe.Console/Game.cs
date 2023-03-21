@@ -18,14 +18,17 @@ public class Game
 
     public void InsertMotion(Token token, Position position)
     {
-        if (Board != null)
+        if (Board == null) return;
+        if (!IsValidMovement(position))
         {
-            if (position.X > 2 || position.Y > 2 || !Board.Value[position.X, position.Y].Equals("[ ]"))
-            {
-                throw new Exception("Invalid movement!");
-            }
-            Board.Value[position.X, position.Y] = $"[{token}]";
+            throw new Exception("Invalid movement!");
         }
+        Board.Value[position.X, position.Y] = $"[{token}]";
+    }
+
+    private bool IsValidMovement(Position position)
+    {
+        return Board != null && position is { X: <= 2, Y: <= 2 } && Board.Value[position.X, position.Y].Equals("[ ]");
     }
 
     public string HasWinnerPlayer()

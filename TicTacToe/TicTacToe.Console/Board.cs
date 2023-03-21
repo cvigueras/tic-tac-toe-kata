@@ -9,7 +9,7 @@ public class Board
         Value = value;
     }
 
-    public static Board? Create(string[,] value)
+    public static Board Create(string[,] value)
     {
         return new Board(value);
     }
