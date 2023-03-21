@@ -20,7 +20,7 @@ public class Game
     {
         if (Board != null)
         {
-            if (!Board.Value[position.X, position.Y].Equals("[ ]"))
+            if (position.X > 2 || position.Y > 2 || !Board.Value[position.X, position.Y].Equals("[ ]"))
             {
                 throw new Exception("Invalid movement!");
             }
