@@ -15,7 +15,7 @@ while(numberMatch >= 9)
     {
         var token = game.GetCurrentTokenPlayer();
         Console.WriteLine(
-            $"{Environment.NewLine} Please Player {token} write the coordinates to place your token (example ==> 1,0)");
+            $"{Environment.NewLine} Please 'Player {token}' write the coordinates to place your token (example ==> 1,0)");
         SetPosition();
         try
         {
